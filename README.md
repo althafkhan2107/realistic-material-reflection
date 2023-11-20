@@ -75,5 +75,3 @@ To get started with this project, follow these steps:
 # Contributing
 If you'd like to contribute to this project, feel free to submit a pull request. Your contributions are highly appreciated!
 
-# License
-This project is licensed under the MIT License.
