@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Realistic material reflection using RGBELoader and FlakesTexture | Three js | Althaf Khan</title>
+</head>
+
+<body>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "./build/three.module.js",
+                "three/addons/": "./js/"
+            }
+        }
+    </script>
+    <script type="module">
+        import * as THREE from './build/three.module.js';
+        import { OrbitControls } from './js/OrbitControls.js';
+        import { FlakesTexture } from './js/FlakesTexture.js';
+        import { RGBELoader } from './js/RGBELoader.js';
+        let scene, renderer, camera, controls, pointlight, cubeMaterial;
+
+        function init() {
+            scene = new THREE.Scene();
+            renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
+            camera.position.set(0, 0, 500);
+            controls = new OrbitControls(camera, renderer.domElement);
+
+            controls.autoRotate = true;
+            controls.autoRotateSpeed = 0.5;
+            controls.enableDamping = true;
+
+            let envmaploader = new THREE.PMREMGenerator(renderer);
+
+            new RGBELoader().setPath('textures/').load('small_empty_room_1_4k.hdr', function (hdrmap) {
+                let envmap = envmaploader.fromCubemap(hdrmap);
+                let texture = new THREE.CanvasTexture(new FlakesTexture());
+                texture.wrapS = THREE.RepeatWrapping;
+                texture.wrapT = THREE.RepeatWrapping;
+                texture.repeat.x = 10;
+                texture.repeat.y = 6;
+
+                const cubeMaterial = {
+                    clearcoat: 1.0,
+                    cleacoatRoughness: 0.1,
+                    metalness: 0.9,
+                    roughness: 0.5,
+                    color: 0x8418ca,
+                    normalMap: texture,
+                    normalScale: new THREE.Vector2(0.15, 0.15),
+                    envMap: envmap.texture
+                };
+
+                let cubeGeo = new THREE.BoxGeometry(100,100,100);
+                let cubeMat = new THREE.MeshPhysicalMaterial(cubeMaterial);
+                let cube = new THREE.Mesh(cubeGeo, cubeMat);
+                scene.add(cube);
+
+                
+            });
+            animate();
+        }
+        function animate() {
+            controls.update();
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+        init();
+    </script>
+</body>
+
+
+</html>
