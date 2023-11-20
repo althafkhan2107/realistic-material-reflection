@@ -9,6 +9,17 @@ Welcome to the Realistic Material Reflections project in Three.js! This project 
 
 [click to preview](https://althafkhan2107.github.io/realistic-material-reflection/).
 
+## Explore the Code on GitHub
+
+Ready to dive in? Explore the complete project on GitHub: [Realistic Material Reflections - GitHub](https://github.com/althafkhan2107/realistic-material-reflection.git)
+
+Feel inspired, and happy coding! 🌟✨
+
+### Live Demo
+
+Click to view the live demo: [Realistic Material Reflections - Demo](https://althafkhan2107.github.io/realistic-material-reflection/)
+
+
 # Introduction
 Reflective surfaces add a touch of magic to any 3D scene, making it feel dynamic and immersive. With RGBELoader and FlakesTexture, we're equipped with the tools to not just simulate but truly craft realistic material reflections.
 
